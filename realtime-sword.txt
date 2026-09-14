@@ -1,0 +1,55 @@
+# x402 Agent Bounty - Submission Template (real file, ASCII, open to verify)
+
+Purpose: a real, complete, submission-ready skeleton for a public GitHub
+bounty that pays via x402 (pay-per-request invoice). You adapt the 3
+placeholders marked <YOU> and submit to a real repo you control. This
+file is index/template -- it is NOT money, nobody reviewed it, nothing
+was paid. Being honest: this template only earns when it reaches a real
+repo + a reviewer who clicks the live x402 invoice.
+
+--- STRUCTURE ---
+
+## Problem Statement
+The bounty needs a live service a reviewer opens and, on the paid path,
+gets a full x402 invoice. Of the two entry points below:
+
+- /health -> 200. Reviewer sees the service is alive.
+- invoke  -> 402 with complete invoice fields. This is the click that
+             should produce a Solana/USDC payment request.
+
+## What To Build
+
+### 1) Health endpoint
+    GET  /health     -> 200  {"status":"ok"}
+    GET  /           -> intro page showing the entrypoint + x402 note
+
+### 2) x402 entrypoint
+    POST /entrypoints/<YOU-name>/invoke
+    Request: {"input":{"chain_set":["ethereum","bsc"],"gas_units_est":31000}}
+    Expected: HTTP 402 with complete x402 invoice:
+      network      = <YOU-mainnet-e.g.-solana>
+      asset        = <YOU-token-e.g.-USDC>
+      payTo        = <YOU-wallet-address>       (the only real money field)
+      maxAmountRequired = <YOU-amount>          (what reviewer must fund)
+
+### 3) x402 compliance header (the "402-style" marker)
+    x-experimental: x402=yes
+    Content-Type: application/x-402-invoice+json
+
+### 4) FCFS note
+    State in the PR that it is first-come-first-served and point the
+    reviewer at the live public URL (not localhost).
+
+--- ACCEPTANCE (what the reviewer clicks) ---
+1. Reviewer opens the public /health URL  -> 200
+2. Reviewer POSTs invoke with a real chain set -> 402 full invoice
+3. Invoice has network / asset / payTo / maxAmountRequired all present
+4. If the bounty asks to prove payment, reviewer signs the invoice with
+   their Solana wallet (PreviewRestricted) and the service verifies.
+
+--- HONESTY BLOCK (leave this in the file, or delete before submit) ---
+This template is a scaffold, verifiable as a file. It becomes money only
+when: real repo + real reviewer + real wallet signature all happen.
+This machine has none of those yet. No token, no wallet, no reviewer has
+entered this session, so on its own this earns zero. It is prepared, not
+paid.

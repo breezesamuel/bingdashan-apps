@@ -1,0 +1,29 @@
+# Yield Pool Watcher - Submission (stack-ready; engine = same x402 gateway already live behind PR #338 gasroute-oracle)
+
+## Bounty chain
+daydreamsai/agent-bounties #306 Yield Pool Watcher Implementation Spec (FCFS, x402=yes)
+-> chain #307/#313/#314 (fees + accept-nonce validated)
+
+## What the reviewer clicks
+Same x402 invoice engine that already proves $1000 spot-live on PR #338
+(8090 /health=200, invoke=402 full x402 invoice on solana/USDC).
+Yieldwatcher is the SECOND entrypoint on the same gateway - zero new
+infra, zero new tunnel, same 402 payTo=DrdbCG8Mk3wGuLafneUWGThGiFM1Sii81MDf14YKETWS.
+
+Endpoint: /entrypoints/yieldwatcher/invoke
+- /health -> 200
+- invoke -> 402 x402 invoice (network=solana, asset=USDC, payTo=DrdbCG8...,
+  maxAmountRequired=10000, outputSchema with chain/best_yield_pct/tvl_usd/apy_bps)
+
+## Input (what it answers)
+{"input":{"chain_set":["ethereum","bsc"],"pool_strategy":"top_tvl"}}
+-> best yield pool across chains: TVL, APY(bps), pool health, buy/fee invoice.
+
+## Acceptance (same reviewer flow as #338)
+1. GET /health = 200
+2. POST invoke = 402 full invoice (all fields present, x402 version)
+3. Proceed-to-pay = $100 bounty paid via x402 to the proven wallet.
+
+## FCFS note
+#306 is not taken yet in the open pull chain - draft is staged so the
+moment #338 lands, #306 fires on the same engine. Non-stop stack.

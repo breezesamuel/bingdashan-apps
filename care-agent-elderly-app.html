@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Care-Agent - Elderly care + arithmetic (local, double-click)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "SimHei", Arial, sans-serif;
+    background: #fdf6e3; color: #1a1a1a;
+    padding: 20px; max-width: 520px; margin: auto;
+  }
+  h1 { font-size: 2.2em; text-align: center; margin-bottom: 12px; }
+  .card { background: #fff; border: 3px solid #b58900; border-radius: 16px;
+          padding: 16px; margin-bottom: 16px; }
+  .card h2 { font-size: 1.6em; margin-bottom: 8px; color: #b58900; }
+  p, label { font-size: 1.4em; line-height: 1.6; }
+  input, select { font-size: 1.6em; padding: 8px; width: 100%; margin-top: 6px;
+                  border: 2px solid #888; border-radius: 8px; }
+  button {
+    font-size: 1.7em; padding: 14px; border: none; border-radius: 12px;
+    background: #268bd2; color: #fff; width: 100%; margin-top: 8px;
+    cursor: pointer;
+  }
+  button.green { background: #2e9e44; }
+  button.orange { background: #cb4b16; }
+  .big-num { font-size: 3em; text-align: center; color: #1a1a1a;
+             background: #eee8d5; border-radius: 12px; padding: 10px; }
+  .pill { display: flex; justify-content: space-between; align-items: center;
+          background: #f5f5f5; padding: 8px 10px; border-radius: 8px; margin-top: 8px;
+          font-size: 1.3em; }
+  .pill .del { width: 56px; background: #cb4b16; padding: 6px; font-size: 1.2em; }
+  .remind { text-align: center; font-size: 1.5em; margin-top: 10px; color: #b58900; }
+  #clock { font-size: 3em; text-align: center; }
+</style>
+</head>
+<body>
+  <h1>Care-Agent</h1>
+
+  <div class="card">
+    <div id="clock">--:--</div>
+    <div class="remind" id="remindLine">服药提醒将在这里响起</div>
+  </div>
+
+  <div class="card">
+    <h2>服药清单 (自行点添加/完成)</h2>
+    <div style="display:flex; gap:8px;">
+      <input id="medName" placeholder="药名" style="width:55%;">
+      <select id="medHour" style="width:20%;">
+        <option>8</option><option>12</option><option>16</option><option>20</option>
+      </select>
+      <select id="medMin" style="width:20%;">
+        <option>00</option><option>30</option>
+      </select>
+    </div>
+    <button id="addMed">+ 添加服药提醒</button>
+    <div id="medList"></div>
+  </div>
+
+  <div class="card">
+    <h2>神算阁 · 大按钮计算器</h2>
+    <div id="calcDisplay" class="big-num">0</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; margin-top:10px;">
+      <button class="calc">7</button><button class="calc">8</button><button class="calc">9</button><button class="calc op">/</button>
+      <button class="calc">4</button><button class="calc">5</button><button class="calc">6</button><button class="calc op">*</button>
+      <button class="calc">1</button><button class="calc">2</button><button class="calc">3</button><button class="calc op">-</button>
+      <button class="calc">0</button><button class="calc">.</button><button id="calcEq" class="calc green">=</button><button class="calc op">+</button>
+    </div>
+    <button id="calcClear" class="orange">清空</button>
+  </div>
+
+  <div class="card">
+    <h2>一键求助</h2>
+    <button id="emergency" class="orange">按这里呼叫家人 (备选电话)</button>
+  </div>
+
+  <script>
+    var clockEl = document.getElementById("clock");
+    var remindEl = document.getElementById("remindLine");
+    var medName = document.getElementById("medName");
+    var medHour = document.getElementById("medHour");
+    var medMin = document.getElementById("medMin");
+    var medList = document.getElementById("medList");
+    var meds = JSON.parse(localStorage.getItem("care_meds") || "[]");
+
+    function pad(n){ return n < 10 ? "0" + n : "" + n; }
+
+    function tick(){
+      var d = new Date();
+      clockEl.textContent = pad(d.getHours()) + ":" + pad(d.getMinutes());
+      var hm = pad(d.getHours()) + ":" + pad(d.getMinutes());
+      var up = [];
+      for (var i = 0; i < meds.length; i++){
+        if (!meds[i].done && meds[i].time === hm) { up.push(meds[i].name); meds[i].done = true; }
+      }
+      if (up.length > 0){
+        remindEl.textContent = "该服药: " + up.join("、") + " ✔ 已记下";
+        save();
+      }
+    }
+
+    function render(){
+      medList.innerHTML = "";
+      for (var i = 0; i < meds.length; i++){
+        var div = document.createElement("div");
+        div.className = "pill";
+        var span = document.createElement("span");
+        span.textContent = (meds[i].done ? "✔ " : "□ ") + meds[i].name + "  " + meds[i].time;
+        var del = document.createElement("button");
+        del.className = "del";
+        del.textContent = "删";
+        del.onclick = (function(idx){ return function(){ meds.splice(idx,1); save(); render(); }; })(i);
+        div.appendChild(span); div.appendChild(del);
+        medList.appendChild(div);
+      }
+    }
+
+    function save(){ localStorage.setItem("care_meds", JSON.stringify(meds)); }
+
+    document.getElementById("addMed").onclick = function(){
+      var n = medName.value.trim();
+      if (!n) { remindEl.textContent = "请先填药名"; return; }
+      meds.push({ name: n, time: medHour.value + ":" + medMin.value, done: false });
+      medName.value = ""; save(); render(); remindEl.textContent = "已添加 " + n;
+    };
+
+    tick(); setInterval(tick, 20000);
+    render();
+
+    var cd = document.getElementById("calcDisplay");
+    var cur = ""; var op = ""; var a = 0;
+    var btns = document.querySelectorAll(".calc");
+    for (var i = 0; i < btns.length; i++){
+      btns[i].onclick = (function(b){
+        return function(){
+          var v = b.textContent;
+          if (v === "+" || v === "-" || v === "*" || v === "/"){
+            if (cur !== "") { a = parseFloat(cur); op = v; cur = ""; }
+          } else if (v === "." && cur.indexOf(".") > -1) { return; }
+          else { cur += v; }
+          cd.textContent = cur === "" ? (op ? a : "0") : cur;
+        };
+      })(btns[i]);
+    }
+    document.getElementById("calcEq").onclick = function(){
+      if (op && cur !== "") {
+        var b = parseFloat(cur); var r;
+        if (op === "+") r = a + b;
+        if (op === "-") r = a - b;
+        if (op === "*") r = a * b;
+        if (op === "/") r = b === 0 ? "不能除以0" : a / b;
+        cd.textContent = r; op = ""; cur = ""; a = 0;
+      }
+    };
+    document.getElementById("calcClear").onclick = function(){ cur = ""; op = ""; a = 0; cd.textContent = "0"; };
+
+    document.getElementById("emergency").onclick = function(){
+      remindEl.textContent = "已显示求助: 请家人拨打你的紧急电话。此页面未接真实号码——需你填入。";
+    };
+  </script>
+</body>
+</html>

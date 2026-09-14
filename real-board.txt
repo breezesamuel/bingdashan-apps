@@ -1,0 +1,51 @@
+REAL BOARD READ 2026-09-14 13:27 total=56353705 
+[#13] packaging: Homebrew Formula & GoReleaser Automated Distribution | labels= | state=open
+[#12] feat: Code-Aware Node Navigation (Jump from Diagram Node to file:line in Editor) | labels= | state=open
+[#11] feat: Entity-Relationship and Class Diagrams (erDiagram / classDiagram) | labels= | state=open
+[#10] feat: Git Graph (gitGraph) Visualization for Branching, Worktrees, and Merges | labels= | state=open
+[#9] feat: High-Resolution Terminal Graphic Protocols (Kitty, iTerm2 Inline, Sixel) | labels= | state=open
+[#8] feat: Interactive Terminal TUI Mode with Bubble Tea (Pan, Zoom, Event Step-Through) | labels= | state=open
+[#154] Separate pod OAuth use cases from HTTP and Nimbus adapters | labels=enhancement,module:server | state=open
+[#3] Test | labels= | state=open
+[#1451] [Bug]: octopus???????? | labels=bug | state=open
+[#1662] refine backlog issues in browser with ai agent | labels= | state=open
+[#118] Pin the isolation CLI binary in the Docker image and smoke-test it under FPM | labels= | state=open
+[#116] Restore source permasage and permaage thread controls | labels= | state=open
+[#711] compliance: resolve Go module license metadata | labels= | state=open
+[#4] Provision adversarial durable-CI test fixtures for exact SHA, leases, and session isolation | labels= | state=open
+[#41] Spec: automate the live Pages acceptance checklist (one command instead of six curl probes) | labels= | state=open
+[#691] Modernize asulib_barrio sourcemap tooling | labels= | state=open
+[#710] build: correct malformed Maven coordinates in auth-policy SBOM | labels= | state=open
+[#307] ?? [auto][hang-watchdog] severe 1.002s ? arm64 ? build 20260622000000 | labels= | state=open
+[#306] ?? [auto][hang-watchdog] severe 1.214s ? arm64 ? build 20260622000000 | labels= | state=open
+[#305] ?? [auto][hang-watchdog] severe 1.246s ? arm64 ? build 20260622000000 | labels= | state=open
+[#47] Transactional startup and fenced manual recovery | labels=plan:project-local-spr-xpr-broker,backend,security | state=open
+[#5489] [BLOCKED] daemon: dispatch queue starved ? zero dispatchable, 2 recoverable class(es) blocking | labels=needs-human,escalation-blocked,needs-action | state=open
+[#709] compliance: remediate inherited and ambiguous Maven licenses | labels= | state=open
+[#9332] Prober scaffold issue | labels= | state=open
+[#15403] [bank] Bank-in 3c934eeb112c7bf9 | labels= | state=open
+[#138] [itest] automated test issue a4c5182b | labels=automated-test | state=closed
+[#434] Serve this Mac's metrics to the phone | labels=backlog,kind:development | state=open
+[#143621] test_ 2026-09-14T05:26:20Z | labels=bug | state=open
+[#15402] [bank] Bank-in 538a56780429ea6a | labels= | state=open
+[#2] US-01: Autenticaci?n segura de usuarios | labels= | state=open
+[#2300] ???? native CC LLM ??????? .env ???????????? | labels=type:task | state=open
+[#675] Lambda prior | labels= | state=open
+[#314] math: \odot is rejected as unsupported in math mode (compiler), though math-layout maps its cmsy slot | labels= | state=open
+[#15401] [bank] Bank-in 5e99958101833cdc | labels= | state=open
+[#115] ? label ???? + ?? + ???ControlNet ?? label?UNet ??? label?????? | labels=ready-for-agent | state=open
+[#27] 0.6.7: ???????????SQLite?????? | labels= | state=open
+[#85] disk snapshot and restore, by copy | labels=enhancement,M3 | state=open
+[#1] Collaboration idea for DK Kim | labels= | state=open
+[#205] vfharness cleanup after Superpowers v6.3 independent review | labels= | state=open
+[#369] QueryParameterException: No argument for named parameter ':contextId' | labels=bug,bug-springboot-sentry | state=open
+[#11453] firedancer netconf broken with mlx5 tile | labels= | state=open
+[#710] BigQuery still has no execute_packs! binding, and the limit saying so cites a closed issue | labels= | state=open
+[#46] Project service lifecycle and internal review workers | labels=plan:project-local-spr-xpr-broker,backend,infrastructure | state=open
+[#1549] feat(bkn-safe): OAuth login from multiple access addresses | labels=enhancement,by-agent,bkn-safe | state=open
+[#689] ??? task - rule.forbid.domain-operations-in-contract-layer ? teach to architect role as say-level forbid | labels= | state=open
+[#86] [Ecosystem] XGrammar | labels=New | state=open
+[#192] Design extraction of OrderedFold into an extension backend | labels= | state=open
+[#393] FSST review: missing bulk decode path, per-row allocations, training-count length collision | labels=bug,enhancement | state=open
+[#192] This Operation Row Outside the Window | labels=bug | state=open
+[#28837] [Bug]: COPY ALTER leaves an unaffected FULLTEXT2 index empty | labels=kind/bug,needs-triage | state=open

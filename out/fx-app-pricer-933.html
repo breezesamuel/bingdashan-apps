@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fx-app-pricer-933</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft YaHei", Arial, sans-serif; background: #fdf6e3;
+         color: #1a1a1a; padding: 18px; max-width: 460px; margin: auto; }
+  h1 { font-size: 2em; text-align: center; margin-bottom: 14px; color: #b58900; }
+  .card { background: #fff; border: 3px solid #b58900; border-radius: 14px;
+          padding: 14px; margin-bottom: 14px; }
+  .med { display: flex; justify-content: space-between; align-items: center;
+         font-size: 1.4em; background: #eee8d0; border-radius: 10px;
+         padding: 8px 10px; margin-top: 8px; }
+  .del { background: #cb4b16; color: #fff; border: none; border-radius: 8px;
+         font-size: 1.2em; padding: 6px 10px; cursor: pointer; }
+  .clock { font-size: 4em; text-align: center; vertical-align: middle; }
+  .big { font-size: 2em; padding: 12px; width: 100%; margin-top: 8px; border-radius: 12px; }
+  input { font-size: 1.5em; padding: 8px; width: 100%; border: 2px solid #888;
+          border-radius: 8px; margin-top: 6px; }
+  button.green { background: #2e9e44; color: #fff; border: none; cursor: pointer; }
+  button.orange { background: #cb4b16; color: #fff; border: none; cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>fx-app-pricer-933</h1>
+  <div class="card">
+    <div class="clock" id="clock">--:--</div>
+    <div class="med" id="remindLine">???(????)</div>
+  </div>
+  <div id="meds"></div>
+  <div class="card">
+    <input id="ninput" placeholder="??/???">
+    <div style="display:flex; gap:8px; margin-top:6px;">
+      <input id="hinput" value="8" style="width:30%;">
+      <input id="minput" value="00" style="width:30%;">
+      <button id="addBtn" class="green" style="width:40%;">???</button>
+    </div>
+  </div>
+  <div class="card">
+    <button id="emerBtn" class="orange">????(????)</button>
+  </div>
+  <div class="card" style="font-size:1.5em;">
+    <div id="disp" class="clock" style="font-size:2.2em;">0</div>
+    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+      <button class="cla">7</button><button class="cla">8</button><button class="cla">9</button><button class="cla op">/</button>
+      <button class="cla">4</button><button class="cla">5</button><button class="cla">6</button><button class="cla op">*</button>
+      <button class="cla">1</button><button class="cla">2</button><button class="cla">3</button><button class="cla op">-</button>
+      <button class="cla">0</button><button class="cla">.</button><button id="calcEq" class="cla op">=</button><button class="cla op">+</button>
+      <button id="calcClear" class="cla" style="width:100%;">??</button>
+    </div>
+  </div>
+  <script>
+    var meds = JSON.parse(localStorage.getItem("meds_" + "fx-app-pricer-933") || "[]");
+    var display = document.getElementById("disp");
+    var remind = document.getElementById("remindLine");
+    var clock = document.getElementById("clock");
+    var medDiv = document.getElementById("meds");
+    var ninput = document.getElementById("ninput");
+    var hinput = document.getElementById("hinput");
+    var minput = document.getElementById("minput");
+    function pad(n){ return n < 10 ? "0" + n : "" + n; }
+    function save(){ localStorage.setItem("meds_" + "fx-app-pricer-933", JSON.stringify(meds)); }
+    function tick(){
+      var d = new Date();
+      clock.textContent = pad(d.getHours()) + ":" + pad(d.getMinutes());
+      var hm = pad(d.getHours()) + ":" + pad(d.getMinutes());
+      var due = [];
+      for (var i = 0; i < meds.length; i++){
+        if (!meds[i].done && meds[i].time === hm) { due.push(meds[i].name); meds[i].done = true; }
+      }
+      if (due.length){ remind.textContent = "??: " + due.join("?") + "  (???)"; save(); }
+      render();
+    }
+    function render(){
+      medDiv.innerHTML = "";
+      for (var i = 0; i < meds.length; i++){
+        (function(idx){
+          var m = meds[idx];
+          var row = document.createElement("div");
+          row.className = "med";
+          var span = document.createElement("span");
+          span.textContent = (m.done ? "[??] " : "[?] ") + m.name + " @ " + m.time;
+          var del = document.createElement("button");
+          del.className = "del"; del.textContent = "?";
+          del.onclick = function(){ meds.splice(idx, 1); save(); render(); };
+          row.appendChild(span); row.appendChild(del);
+          medDiv.appendChild(row);
+        })(i);
+      }
+    }
+    document.getElementById("addBtn").onclick = function(){
+      var n = ninput.value.trim();
+      if (!n){ remind.textContent = "????/???"; return; }
+      meds.push({ name: n, time: pad(parseInt(hinput.value)||8) + ":" + pad(parseInt(minput.value)||0), done: false });
+      ninput.value = ""; save(); render(); remind.textContent = "??: " + n;
+    };
+    var cur = "", op = "", a = 0;
+    var clas = document.querySelectorAll(".cla");
+    for (var i = 0; i < clas.length; i++){
+      (function(b){
+        clas[i].onclick = function(){
+          var v = b.textContent;
+          if (v === "+" || v === "-" || v === "*" || v === "/"){
+            if (cur !== ""){ a = parseFloat(cur); op = v; cur = ""; }
+          } else if (v === "." && cur.indexOf(".") > -1){ return; }
+          else { cur += v; }
+          display.textContent = cur === "" ? (op ? String(a) : "0") : cur;
+        };
+      })(clas[i]);
+    }
+    document.getElementById("calcEq").onclick = function(){
+      if (op && cur !== ""){
+        var b = parseFloat(cur), r;
+        if (op === "+") r = a + b; if (op === "-") r = a - b;
+        if (op === "*") r = a * b; if (op === "/") r = b === 0 ? "?0?" : a / b;
+        display.textContent = r; op = ""; cur = ""; a = 0;
+      }
+    };
+    document.getElementById("calcClear").onclick = function(){ cur = ""; op = ""; a = 0; display.textContent = "0"; };
+    document.getElementById("emerBtn").onclick = function(){ remind.textContent = "???????????????????"; };
+    tick(); setInterval(tick, 20000); render();
+  </script>
+</body>
+</html>
