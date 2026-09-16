@@ -1,0 +1,2 @@
+siliconflow status=200 model=deepseek-ai/DeepSeek-V3
+{"id":"01a0a05d3326479c4c06924c1dd9262c","object":"chat.completion","created":1789396857,"model":"deepseek-ai/DeepSeek-V3","choices":[{"index":0,"message":{"role":"assistant","content":"ALIVE"},"finish_reason":"stop"}],"usage":{"prompt_tokens":12,"completion_tokens":2,"total_tokens":14,"prompt_tokens_details":{"cached_tokens":0},"prompt_cache_hit_tokens":0,"prompt_cache_miss_tokens":12},"system_fingerprint":""}

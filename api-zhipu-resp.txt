@@ -1,0 +1,2 @@
+zhipu status=200 model=glm-4-flash
+{"choices":[{"finish_reason":"stop","index":0,"message":{"content":"ALIVE","role":"assistant"}}],"created":1789396859,"id":"20260914224058c7b22efb78cc4657","model":"glm-4-flash","object":"chat.completion","request_id":"20260914224058c7b22efb78cc4657","usage":{"completion_tokens":4,"prompt_tokens":14,"total_tokens":18}}
