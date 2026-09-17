@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>简历×JD 关键词匹配度</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 人群: 求职者 · 痛点: 简历关键词和岗位JD对不上</div>
+<h1>简历×JD 关键词匹配度</h1><div class="box"><label>简历内容</label><textarea id="r" rows="5" placeholder="简历正文"></textarea><label>JD 内容</label><textarea id="j" rows="5" placeholder="岗位描述"></textarea><label>其他</label><input id="o" type="text" placeholder="可选">
+<button onclick="go()">开始</button>
+<div class="out" id="o">在这里出结果</div>
+</div><p class="k">只针对求职者人群的简历关键词和岗位JD对不上场景, 免费工具 · bingdashan pain-tools</p>
+<script>function go(){var r=document.getElementById("r").value.toLowerCase(),j=document.getElementById("j").value.toLowerCase();var words=j.match(/[a-z一-龥]{2,}/g)||[];var u=[...new Set(words)].filter(w=>r.includes(w));var p=words.length?Math.round(u.length/words.length*100):0;document.getElementById("o").innerHTML="命中 "+u.length+"/"+words.length+" 关键词 → 匹配度 "+p+"%<br>缺的关键词: "+(words.filter(w=>!r.includes(w)).slice(0,8).join("、")||"无");}</script></body></html>

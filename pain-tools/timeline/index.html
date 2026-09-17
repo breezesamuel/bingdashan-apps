@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多客户排期冲突检查器</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 人群: 自由职业者 · 痛点: 同时三个客户, 时间不够用</div>
+<h1>多客户排期冲突检查器</h1><div class="box"><label>输入内容</label><textarea id="t" rows="4" placeholder="贴入你的原始内容/文字"></textarea><label>其他</label><input id="o" type="text" placeholder="可选">
+<button onclick="go()">开始</button>
+<div class="out" id="o">在这里出结果</div>
+</div><p class="k">只针对自由职业者人群的同时三个客户, 时间不够用场景, 免费工具 · bingdashan pain-tools</p>
+<script>function go(){var txt=document.getElementById("t").value.split("
+").filter(x=>x.includes("|"));var rows=txt.map(x=>{var p=x.split("|");return{who:p[0],start:parseInt(p[1]),end:parseInt(p[2])}});var hits=[];for(var i=0;i<rows.length;i++)for(var j=i+1;j<rows.length;j++){var a=rows[i],b=rows[j];if(a.start<b.end&&b.start<a.end)hits.push(a.who+" ↔ "+b.who+" (撞期 "+Math.max(a.start,b.start)+"–"+Math.min(a.end,b.end)+"点)");}document.getElementById("o").innerHTML=hits.length?("冲突区间:<br>"+hits.join("<br>")):"无冲突, 排期安全";}</script></body></html>

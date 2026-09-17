@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>作业时长病态检测器</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 人群: 家长 · 痛点: 娃磨蹭写作业到十点</div>
+<h1>作业时长病态检测器</h1><div class="box"><label>输入内容</label><textarea id="t" rows="4" placeholder="贴入你的原始内容/文字"></textarea><label>其他</label><input id="o" type="text" placeholder="可选"><label>年级(数字)</label><input id="g" type="number" placeholder="3">
+<button onclick="go()">开始</button>
+<div class="out" id="o">在这里出结果</div>
+</div><p class="k">只针对家长人群的娃磨蹭写作业到十点场景, 免费工具 · bingdashan pain-tools</p>
+<script>function go(){var grade=parseInt(document.getElementById("g").value)||3;var min=grade*10, alert=(grade*10)+40;var t=parseInt(document.getElementById("t").value)||60;document.getElementById("o").textContent="年级"+grade+"建议作业时长:"+min+"–"+alert+"分钟。今天写"+t+"分钟 → "+(t>alert?"⚠ 超时"+Math.round((t-alert))+"分钟, 先查专注力与分心源, 再考虑减量":"正常区间, 保持");}</script></body></html>

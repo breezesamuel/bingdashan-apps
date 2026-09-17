@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>任务启动器</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea,select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem;margin-top:4px}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666;margin-top:28px}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 👥 低效族 · 痛点: 列了十件事一件没动</div>
+<h1>任务启动器</h1><div class="box"><label>输入 A</label><textarea id="T1" rows="4" placeholder="贴内容..."></textarea><label>输入 B</label><textarea id="T2" rows="3" placeholder="第二段..."></textarea>
+<button onclick="go()">开始</button><div class="out" id="o">结果在这里</div></div>
+<p class="k">只服务「低效族」人群 · 免费 · bingdashan pain-tools</p>
+<script>function go(){var a=document.getElementById('T1').value||'改方案';var b=document.getElementById('T2').value||'回邮件';var o='今天的要事漏斗：<br>1) 只保留 '+a+' 和 '+b+'<br>2) 先吃最酸的青蛙：先把 '+a+' 做 10 分钟<br>3) 其它全部进「下周清单」。<br>一天做好 2 件，胜过计划 10 件。';document.getElementById('o').innerHTML=o;}</script></body></html>

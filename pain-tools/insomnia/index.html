@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>睡前大脑关机程序</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea,select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem;margin-top:4px}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666;margin-top:28px}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 👥 失眠族 · 痛点: 躺下两小时脑子还在放电影</div>
+<h1>睡前大脑关机程序</h1><div class="box"><label>数值 1</label><input id="N1" type="number" placeholder="0">
+<button onclick="go()">开始</button><div class="out" id="o">结果在这里</div></div>
+<p class="k">只服务「失眠族」人群 · 免费 · bingdashan pain-tools</p>
+<script>function go(){var n=parseInt(document.getElementById('N1').value)||23;var o='明天 '+(n)+' 点前把手机放客厅充电，改读纸书 20 分钟。躺下后把脑子里的事全写纸上（备忘录+清单），写完立刻翻身。3 天可调回来，今晚从「不带手机进卧室」开始。';document.getElementById('o').innerHTML=o;}</script></body></html>

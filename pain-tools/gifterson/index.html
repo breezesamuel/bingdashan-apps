@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>节日送礼灵感生成</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea,select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem;margin-top:4px}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666;margin-top:28px}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 👥 过节送礼人 · 痛点: 节日礼物挑到怀疑人生</div>
+<h1>节日送礼灵感生成</h1><div class="box"><label>字段</label><input id="S1" type="text" placeholder="名字/标题/城市...">
+<button onclick="go()">开始</button><div class="out" id="o">结果在这里</div></div>
+<p class="k">只服务「过节送礼人」人群 · 免费 · bingdashan pain-tools</p>
+<script>function go(){var s=document.getElementById('S1').value||'对方刚搬新家';var o='送「'+s+'」的灵感：<br>1) 实用小家电/家居好物<br>2) 定制纪念品（照片/名字）<br>3) 她最近念叨的东西<br>4) 体验类：咖啡券/SPA券/门票。<br>心意=花了心思，不是花了钱。';document.getElementById('o').innerHTML=o;}</script></body></html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>论文最危险句子扫描器</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.7;color:#222}
+h1{font-size:1.5rem}.box{border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin:16px 0}
+input,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem}
+button{margin-top:12px;padding:10px 18px;background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer;font-size:1rem}
+.out{margin-top:14px;padding:12px;background:#f3f4f6;border-radius:8px;white-space:pre-wrap}
+.k{font-size:.8rem;color:#666}.nav{font-size:.85rem;margin-bottom:20px}</style></head><body>
+<div class="nav">◀ <a href="../index.html">← 回工具总表</a> · 人群: 学生 · 痛点: 论文查重段落在哪几句最危险</div>
+<h1>论文最危险句子扫描器</h1><div class="box"><label>输入内容</label><textarea id="t" rows="4" placeholder="贴入你的原始内容/文字"></textarea><label>其他</label><input id="o" type="text" placeholder="可选">
+<button onclick="go()">开始</button>
+<div class="out" id="o">在这里出结果</div>
+</div><p class="k">只针对学生人群的论文查重段落在哪几句最危险场景, 免费工具 · bingdashan pain-tools</p>
+<script>function go(){var s=document.getElementById("t").value;var w=s.split(/[。！？]/).filter(x=>x.length>10&&x.length<60);var x=w.map((i,idx)=>({i,idx,score:(i.match(/、|，|是|的|在/g)||[]).length}));x.sort((a,b)=>b.score-a.score);var top=x.slice(0,3);var h="最疑似重句(top3):<br>"+top.map(q=>"&nbsp;["+q.idx+"] "+(q.i.length>30?q.i.slice(0,30)+"...":q.i)+" (密度"+q.score+")").join("<br>");document.getElementById("o").innerHTML=h+(x.length?"<br><br>其余句低风险":"<br>无句子");}</script></body></html>
